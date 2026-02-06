@@ -50,6 +50,23 @@
   const tryFeather = () => { try { window.feather?.replace(); } catch {} };
   const status = (msg) => { const el = $("#statusText"); if (el) el.textContent = msg; };
 
+  const updateHostingStatus = async () => {
+    const dnsEl = $("#dnsStatus");
+    const staticEl = $("#staticStatus");
+    if (!dnsEl && !staticEl) return;
+
+    const fallbackHost = location.host || "local";
+    try {
+      const res = await fetch("/status");
+      const data = await res.json();
+      if (dnsEl) dnsEl.textContent = `DNS: ${data.dnsHost || fallbackHost}`;
+      if (staticEl) staticEl.textContent = `Static: ${data.staticServer || "active"}`;
+    } catch {
+      if (dnsEl) dnsEl.textContent = `DNS: ${fallbackHost}`;
+      if (staticEl) staticEl.textContent = "Static: offline";
+    }
+  };
+
   // ---------- 2) Persistence (keys) ----------
   const K_TABS = "asx_tabs_v1";
   const K_LIKES = "asx_likes_v1";
@@ -389,6 +406,7 @@
     wireRailEvents();
     wireAddressBar();
     maybeOpenFromQuery();
+    updateHostingStatus();
     status("Ready");
   }
 

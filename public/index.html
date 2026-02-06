@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ASX Holo Browser</title>
+    <link rel="stylesheet" href="/style.css" />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Share Tech Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+          "Courier New", monospace;
+        background: #03070a;
+        color: #bff7ff;
+      }
+      #mainView {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        min-height: 100vh;
+      }
+      #preview {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      #asxCanvas,
+      #asxFrame {
+        width: 100%;
+        min-height: 480px;
+        border-radius: 16px;
+        border: 1px solid rgba(0, 255, 208, 0.3);
+        background: #00141b;
+      }
+      #asxFrame {
+        background: #000;
+      }
+      .host-pill {
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(0, 255, 208, 0.4);
+        color: #7ff;
+        font-size: 0.75rem;
+      }
+      .host-stack {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <main id="mainView">
+      <section id="preview">
+        <div class="host-stack">
+          <span class="host-pill" id="dnsStatus">DNS: loading…</span>
+          <span class="host-pill" id="staticStatus">Static: checking…</span>
+        </div>
+        <canvas id="asxCanvas"></canvas>
+        <iframe id="asxFrame" title="ASX Holo Preview"></iframe>
+      </section>
+    </main>
+
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="/runtime/asx.holo.ui.js"></script>
+  </body>
+</html>
